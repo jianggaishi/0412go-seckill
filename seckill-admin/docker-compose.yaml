@@ -1,0 +1,44 @@
+version: '2'  #设定版本
+services:
+
+  consul:
+    image: consul:latest
+    container_name: secconsul
+    ports:
+      - "8500:8500"
+#    command: agent -client=0.0.0.0 -retry-join=consul1 -ui -node=client1 -datacenter=dc1
+    command: agent -server -bootstrap -ui -node=1 -client='0.0.0.0'
+  mysql:
+    image: mysql:5.7.14
+    #    image: mysql:8.0.20
+    container_name: secmysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "zhangpeng"
+    #      MYSQL_DATABASE: "seckill"
+    command: [
+      '--character-set-server=utf8mb4',
+      '--collation-server=utf8mb4_unicode_ci',
+      '--default-authentication-plugin=mysql_native_password' #这行代码解决无法访问的问题
+    ]
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d   #所有这个目录下的sql都会执行
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: seczipkin
+    expose:
+      - "9411"
+    ports:
+      - "9411:9411"
+  sk-admin:
+    build: .
+    container_name: sk-admin
+    depends_on:
+      - consul
+      - zipkin
+      - mysql
+    ports:
+      - "9030:9030"

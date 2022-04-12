@@ -1,0 +1,100 @@
+version: '3.9'  #设定版本
+
+services:
+  consul:
+    image: consul:latest
+    container_name: secconsul
+    expose:
+      - "8500"
+    ports:
+      - "8500:8500"
+    #    command: agent -client=0.0.0.0 -retry-join=consul1 -ui -node=client1 -datacenter=dc1
+    command: agent -server -bootstrap -ui -node=1 -client='0.0.0.0'
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: seczipkin
+    expose:
+      - "9411"
+    ports:
+      - "9411:9411"
+  zoo1:
+    image: zookeeper:latest
+#    restart: always
+    container_name: seczool
+    expose:
+      - "2181"
+    ports:
+      - "2181:2181"
+  mysql:
+#    image: mysql:5.7.14
+    image: zpskt/seckill_mysql:2.0
+    container_name: secmysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "zhangpeng"
+#      MYSQL_DATABASE: "seckill"
+    command: [
+        '--character-set-server=utf8mb4',
+        '--collation-server=utf8mb4_unicode_ci',
+        '--default-authentication-plugin=mysql_native_password' #这行代码解决无法访问的问题
+    ]
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d   #所有这个目录下的sql都会执行
+  redis:
+    image: redis
+    container_name: secredis
+
+    #    container_name: my_redis
+    command: redis-server --requirepass "zhangpeng"  #设置redis密码
+    expose:
+      - "6379"
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data:/data
+  admin:
+    image: zpskt/seckill_admin:2.0
+#    build: ./seckill-admin
+    container_name: sk-admin
+
+    depends_on:
+      - consul
+      - zoo1
+      - mysql
+      - redis
+      - zipkin
+    expose:
+      - "9030"
+    ports:
+      - "9030:9030"
+  app:
+    image: zpskt/seckill_app:2.0
+#    build: ./seckill-app
+    container_name: sk-app
+    depends_on:
+      - consul
+      - zoo1
+      - mysql
+      - redis
+      - zipkin
+    expose:
+      - "9031"
+    ports:
+      - "9031:9031"
+  core:
+    image: zpskt/seckill_core:2.0
+#    build: ./seckill-core
+    container_name: sk-core
+    depends_on:
+      - consul
+      - zoo1
+      - mysql
+      - redis
+      - zipkin
+    expose:
+      - "9032"
+    ports:
+      - "9032:9032"

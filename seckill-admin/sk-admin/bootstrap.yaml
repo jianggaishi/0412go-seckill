@@ -1,0 +1,71 @@
+
+http:
+  host: localhost
+  port: 9030
+
+rpc:
+  host: localhost
+  port: 9132
+
+discover:
+  Host: secconsul
+  port: 8500
+  instanceId: sk-admin-localhost
+  serviceName: sk-admin
+  weight: 1
+
+
+config:
+  id: config-service
+  profile: "dev"
+
+
+
+trace:
+  host: seczipkin
+#  host: localhost
+  port: 9411
+  url: /api/v2/spans
+
+mysql:
+  host: secmysql
+  port: 3306
+  user: root
+  pwd: zhangpeng
+  Db: seckill
+
+redis:
+  host: secredis:6379
+  password: zhangpeng
+  db: 0
+  proxy2layer_queue_name: name
+  ip_black_list_hash: 12
+  id_black_list_queue: 12
+
+service:
+  ip_sec_access_limit: 1000
+  ip_min_access_limit: 1000
+  user_sec_access_limit: 1000
+  user_min_access_limit: 1000
+  write_proxy2layer_goroutine_num: 100
+  read_proxy2layer_goroutine_num: 100
+  cookie_secretkey: zxfyazzaa
+  refer_whitelist: test,test1
+  AppWriteToHandleGoroutineNum: 10
+  AppReadFromHandleGoroutineNum: 10
+  CoreReadRedisGoroutineNum: 10
+  CoreWriteRedisGoroutineNum: 10
+  CoreHandleGoroutineNum: 10
+  AppWaitResultTimeout: 1000
+  CoreWaitResultTimeout: 1000
+  MaxRequestWaitTimeout: 1000
+  SendToWriteChanTimeout: 1000
+  SendToHandleChanTimeout: 1000
+  TokenPassWd: go
+auth:
+  permitAll:
+    -
+      /oauth/**
+    -
+      /string/**
+

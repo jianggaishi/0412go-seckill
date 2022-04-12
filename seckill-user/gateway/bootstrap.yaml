@@ -1,0 +1,40 @@
+
+http:
+  host: localhost
+  port: 9090
+
+
+discover:
+  Host: localhost
+  port: 8500
+  instanceId: gateway-service-localhost
+  serviceName: gateway
+
+
+config:
+  id: config-service
+  profile: "dev"
+  label: "master"
+
+trace:
+  host: localhost
+  port: 9411
+  url: /api/v2/spans
+
+rpc:
+  port: 1111
+
+mysql:
+  host: 39.99.214.230
+  port: 3306
+  user: root
+  pwd: zhangpeng
+  Db: blog
+
+auth:
+  permitAll:
+    -
+      /oauth/**
+    -
+      /string/**
+

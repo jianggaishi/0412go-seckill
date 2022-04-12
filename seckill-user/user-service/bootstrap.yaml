@@ -1,0 +1,63 @@
+
+http:
+  host: localhost
+  port: 9009
+
+rpc:
+  host: localhost
+  port: 9108
+
+discover:
+  Host: localhost
+  port: 8500
+  instanceId: user-service-localhost
+  serviceName: user
+  weight: 1
+
+
+config:
+  id: config-service
+  profile: "dev"
+  label: "master"
+
+
+trace:
+  host: 39.99.214.230
+  port: 9411
+  url: /api/v2/spans
+
+mysql:
+  host: 39.99.214.230
+  port: 3306
+  user: root
+  pwd: zhangpeng
+  Db: seckill
+
+redis:
+  host: 39.99.214.230:6379
+  password: zhangpeng
+  db: 0
+  Proxy2layerQueueName: proxy2layer
+  Layer2proxyQueueName: Layer2proxy
+  IdBlackListHash: IdBlackListHash
+  IpBlackListHash: IpBlackListHash
+  IdBlackListQueue: IdBlackListQueue
+  IpBlackListQueue: IpBlackListQueue
+
+service:
+  ip_sec_access_limit: 1000
+  ip_min_access_limit: 1000
+  user_sec_access_limit: 1000
+  user_min_access_limit: 1000
+  write_proxy2layer_goroutine_num: 100
+  read_proxy2layer_goroutine_num: 100
+  cookie_secretkey: zxfyazzaa
+  refer_whitelist:
+    - test
+auth:
+  permitAll:
+    -
+      /oauth/**
+    -
+      /string/**
+
