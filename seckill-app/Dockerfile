@@ -12,6 +12,8 @@ WORKDIR /app/sk-app
 ENV GOPROXY https://goproxy.cn,direct
 
 #go构建可执行文件
+RUN cd ..
+RUN go mod init
 RUN go build .
 
 
