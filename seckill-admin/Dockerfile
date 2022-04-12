@@ -2,6 +2,8 @@
 FROM golang:1.17
 #新建文件夹
 RUN mkdir /app
+
+RUN go mod dity
 #复制代码
 COPY . /app
 #设置工作目录
