@@ -11,9 +11,9 @@ WORKDIR /app/sk-app
 #设置代理
 ENV GOPROXY https://goproxy.cn,direct
 
+ENV GO111MODULE off
+
 #go构建可执行文件
-RUN cd ..
-RUN go mod init
 RUN go build .
 
 
