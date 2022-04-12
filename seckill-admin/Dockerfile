@@ -16,6 +16,7 @@ ENV GOPROXY https://goproxy.cn,direct
 ENV GO111MODULE on
 #go构建可执行文件
 RUN go mod init sk-admin
+RUN go mod dity
 RUN go build .
 
 
