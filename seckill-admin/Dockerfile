@@ -3,7 +3,7 @@ FROM golang:1.17
 #新建文件夹
 RUN mkdir /app
 
-RUN go mod dity
+
 #复制代码
 COPY . /app
 #设置工作目录
@@ -13,7 +13,7 @@ WORKDIR /app/sk-admin
 #设置代理
 ENV GOPROXY https://goproxy.cn,direct
 
-ENV GO111MODULE off
+ENV GO111MODULE on
 #go构建可执行文件
 
 RUN go build .
