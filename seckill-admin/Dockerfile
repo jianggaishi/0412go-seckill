@@ -5,7 +5,7 @@ RUN mkdir /app
 #复制代码
 COPY . /app
 #设置工作目录
-COPY ./go.mod /app/sk-admin
+COPY go.mod /app/sk-admin
 
 WORKDIR /app/sk-admin
 
