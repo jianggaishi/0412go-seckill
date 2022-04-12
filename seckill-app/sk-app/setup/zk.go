@@ -11,7 +11,7 @@ import (
 
 //初始化Etcd
 func InitZk() {
-	var hosts = []string{"39.99.214.230:2181"}
+	var hosts = []string{"192.168.145.151:2181"}
 	//option := zk.WithEventCallback(waitSecProductEvent)
 	conn, _, err := zk.Connect(hosts, time.Second*5)
 	if err != nil {

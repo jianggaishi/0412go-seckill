@@ -8,7 +8,7 @@ rpc:
 
 
 discover:
-  Host: secconsul
+  Host: 192.168.145.151
   port: 8500
   instanceId: sk-app-localhost
   serviceName: sk-app # 要缓存sk-app
@@ -26,20 +26,20 @@ config:
 
 
 trace:
-  host: seczipkin
+  host: 192.168.145.151
 #  host: localhost
   port: 9411
   url: /api/v2/spans
 
 mysql:
-  host: secmysql
+  host: 192.168.145.151
   port: 3306
   user: root
   pwd: zhangpeng
   Db: seckill
 
 redis:
-  host: 39.99.214.230:6379
+  host: 192.168.145.151:6379
   password: zhangpeng
   db: 0
   Proxy2layerQueueName: proxy2layer
