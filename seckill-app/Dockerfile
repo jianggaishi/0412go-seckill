@@ -5,6 +5,7 @@ RUN mkdir /app
 #复制代码
 COPY . /app
 #设置工作目录
+COPY ./go.mod /app/sk-app
 WORKDIR /app/sk-app
 
 #设置代理
